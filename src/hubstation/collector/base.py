@@ -1,0 +1,25 @@
+from typing import Iterable
+
+
+class BaseCollector:
+    """Base collector"""
+
+    def __init__(self, settings):
+        self.settings = settings
+        self.setup()
+
+    def setup(self):
+        """Setup something when init extractor"""
+
+    def extract(self) -> Iterable[str]:
+        """Extract data."""
+        raise NotImplementedError()
+
+    def close(self):
+        """Close something."""
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
