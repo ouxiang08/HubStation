@@ -29,7 +29,6 @@ func-timeout==4.3.5
 ghp-import==2.1.0
 greenlet==2.0.2
 h11==0.14.0
--e git+https://gitee.com/jiajingjing/hub-station.git@204d19038738c9eae71adcac011d41271ce8745e#egg=hubstation
 identify==2.5.26
 idna==3.4
 iniconfig==2.0.0
@@ -61,6 +60,7 @@ pydantic_core==2.6.1
 Pygments==2.16.1
 pylint==2.17.5
 pymdown-extensions==10.1
+Pyntifex==0.0.14
 pyproject-api==1.5.4
 pyquery==2.0.0
 PySocks==1.7.1
