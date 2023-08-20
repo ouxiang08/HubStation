@@ -18,6 +18,8 @@ TMDB_API_DOMAINS = ['api.themoviedb.org', 'api.tmdb.org', 'tmdb.nastool.cn', 'tm
 TMDB_IMAGE_DOMAIN = 'image.tmdb.org'
 # 添加下载时增加的标签，开始只监控NAStool添加的下载时有效
 PT_TAG = "HS"
+# 下载文件转移检查时间间隔，
+PT_TRANSFER_INTERVAL = 300
 
 settings = Dynaconf(
     settings_files=['settings.yml'],
