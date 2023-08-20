@@ -98,7 +98,7 @@ class SystemUtils:
     @staticmethod
     def is_lite_version():
         return True if SystemUtils.is_docker() \
-                       and os.environ.get("NASTOOL_VERSION") == "lite" else False
+                       and os.environ.get("HUBSTATION_VERSION") == "lite" else False
 
     @staticmethod
     def get_webdriver_path():
@@ -175,7 +175,7 @@ class SystemUtils:
             dest = dest.replace("\\", "/")
             retcode = subprocess.run(['rclone', 'moveto',
                                       src,
-                                      f'NASTOOL:{dest}'],
+                                      f'HUBSTATION:{dest}'],
                                      startupinfo=SystemUtils.__get_hidden_shell()).returncode
             return retcode, ""
         except Exception as err:
@@ -192,7 +192,7 @@ class SystemUtils:
             dest = dest.replace("\\", "/")
             retcode = subprocess.run(['rclone', 'copyto',
                                       src,
-                                      f'NASTOOL:{dest}'],
+                                      f'HUBSTATION:{dest}'],
                                      startupinfo=SystemUtils.__get_hidden_shell()).returncode
             return retcode, ""
         except Exception as err:
@@ -212,7 +212,7 @@ class SystemUtils:
             retcode = subprocess.run(['mc', 'mv',
                                       '--recursive',
                                       src,
-                                      f'NASTOOL/{dest}'],
+                                      f'HUBSTATION/{dest}'],
                                      startupinfo=SystemUtils.__get_hidden_shell()).returncode
             return retcode, ""
         except Exception as err:
@@ -232,7 +232,7 @@ class SystemUtils:
             retcode = subprocess.run(['mc', 'cp',
                                       '--recursive',
                                       src,
-                                      f'NASTOOL/{dest}'],
+                                      f'HUBSTATION/{dest}'],
                                      startupinfo=SystemUtils.__get_hidden_shell()).returncode
             return retcode, ""
         except Exception as err:

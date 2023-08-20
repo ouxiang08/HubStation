@@ -55,14 +55,14 @@ class Downloader:
             enabled = downloader_conf.ENABLED
             # 下载器监控配置
             transfer = downloader_conf.TRANSFER
-            only_nastool = downloader_conf.ONLY_NASTOOL
+            only_hubstation = downloader_conf.ONLY_HStation
             match_path = downloader_conf.MATCH_PATH
             rmt_mode = downloader_conf.RMT_MODE
             # rmt_mode_name = ModuleConf.RMT_MODES.get(rmt_mode).value if rmt_mode else ""
             # 输出日志
             if transfer:
                 log_content = ""
-                if only_nastool:
+                if only_hubstation:
                     log_content += "启用标签隔离，"
                 if match_path:
                     log_content += "启用目录隔离，"
@@ -80,7 +80,7 @@ class Downloader:
                 "type": dtype,
                 "enabled": enabled,
                 "transfer": transfer,
-                "only_nastool": only_nastool,
+                "only_hubstation": only_hubstation,
                 "match_path": match_path,
                 "rmt_mode": rmt_mode,
                 # "rmt_mode_name": rmt_mode_name,

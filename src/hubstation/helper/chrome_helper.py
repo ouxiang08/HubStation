@@ -30,7 +30,7 @@ class ChromeHelper(object):
 
         if SystemUtils.is_windows() or SystemUtils.is_macos():
             self._headless = False
-        elif not os.environ.get("NASTOOL_DISPLAY"):
+        elif not os.environ.get("HStation_VERSION_DISPLAY"):
             self._headless = True
         else:
             self._headless = headless

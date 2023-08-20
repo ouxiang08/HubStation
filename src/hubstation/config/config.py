@@ -7,6 +7,8 @@ import sys
 from threading import Lock
 import ruamel.yaml
 
+APP_VERSION = 'v0.0.1'
+
 # 种子名/文件名要素分隔字符
 SPLIT_CHARS = r"\.|\s+|\(|\)|\[|]|-|\+|【|】|/|～|;|&|\||#|_|「|」|~"
 # 默认User-Agent
@@ -14,9 +16,9 @@ DEFAULT_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 # 收藏了的媒体的目录名，名字可以改，在Emby中点击红星则会自动将电影转移到此分类下，需要在Emby Webhook中配置用户行为通知
 RMT_FAVTYPE = '精选'
 # TMDB域名地址
-TMDB_API_DOMAINS = ['api.themoviedb.org', 'api.tmdb.org', 'tmdb.nastool.cn', 'tmdb.nastool.workers.dev']
+TMDB_API_DOMAINS = ['api.themoviedb.org', 'api.tmdb.org']
 TMDB_IMAGE_DOMAIN = 'image.tmdb.org'
-# 添加下载时增加的标签，开始只监控NAStool添加的下载时有效
+# 添加下载时增加的标签，开始只监控HStation添加的下载时有效
 PT_TAG = "HS"
 # 下载文件转移检查时间间隔，
 PT_TRANSFER_INTERVAL = 300
@@ -37,7 +39,7 @@ class OsType(Enum):
 # WebDriver路径
 WEBDRIVER_PATH = {
     "Docker": "/usr/lib/chromium/chromedriver",
-    "Synology": "/var/packages/NASTool/target/bin/chromedriver"
+    "Synology": "/var/packages/HStation/target/bin/chromedriver"
 }
 
 # Xvfb虚拟显示路程
@@ -71,7 +73,7 @@ class Config(object):
     _user = None
 
     def __init__(self):
-        self._config_path = os.environ.get('NASTOOL_CONFIG')
+        self._config_path = os.environ.get('HUBStation_SRC_CONFIG')
         if not os.environ.get('TZ'):
             os.environ['TZ'] = 'Asia/Shanghai'
         self.init_syspath()
@@ -80,7 +82,7 @@ class Config(object):
     def init_config(self):
         try:
             if not self._config_path:
-                print("【Config】NASTOOL_CONFIG 环境变量未设置，程序无法工作，正在退出...")
+                print("【Config】HStation_CONFIG 环境变量未设置，程序无法工作，正在退出...")
                 quit()
             if not os.path.exists(self._config_path):
                 os.makedirs(os.path.dirname(self._config_path), exist_ok=True)

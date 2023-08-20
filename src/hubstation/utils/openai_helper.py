@@ -75,7 +75,7 @@ class OpenAiHelper:
     @staticmethod
     def __get_model(message,
                     prompt=None,
-                    user="NAStool",
+                    user="HubStation",
                     **kwargs):
         """
         获取模型

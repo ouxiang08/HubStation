@@ -6,7 +6,7 @@ from hubstation.utils.http_utils import RequestUtils
 
 
 class Rarbg:
-    _appid = "nastool"
+    _appid = "hubstation"
     _indexer_id = None
     _indexer_name = None
     _req = None

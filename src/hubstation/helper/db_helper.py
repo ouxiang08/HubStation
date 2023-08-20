@@ -2479,7 +2479,7 @@ class DbHelper:
                                    interval,
                                    enabled,
                                    samedata,
-                                   onlynastool,
+                                   onlyhubstation,
                                    downloader,
                                    config: dict,
                                    note=None):
@@ -2492,7 +2492,7 @@ class DbHelper:
             INTERVAL=int(interval),
             ENABLED=int(enabled),
             SAMEDATA=int(samedata),
-            ONLYNASTOOL=int(onlynastool),
+            ONLYHUBSTATION=int(onlyhubstation),
             DOWNLOADER=downloader,
             CONFIG=json.dumps(config),
             NOTE=note
@@ -2505,7 +2505,7 @@ class DbHelper:
                           enabled,
                           dtype,
                           transfer,
-                          only_nastool,
+                          only_hubstation,
                           match_path,
                           rmt_mode,
                           config,
@@ -2520,7 +2520,7 @@ class DbHelper:
                     "ENABLED": int(enabled),
                     "TYPE": dtype,
                     "TRANSFER": int(transfer),
-                    "ONLY_NASTOOL": int(only_nastool),
+                    "ONLY_HUBSTATION": int(only_hubstation),
                     "MATCH_PATH": int(match_path),
                     "RMT_MODE": rmt_mode,
                     "CONFIG": config,
@@ -2533,7 +2533,7 @@ class DbHelper:
                 ENABLED=int(enabled),
                 TYPE=dtype,
                 TRANSFER=int(transfer),
-                ONLY_NASTOOL=int(only_nastool),
+                ONLY_HUBSTATION=int(only_hubstation),
                 MATCH_PATH=int(match_path),
                 RMT_MODE=rmt_mode,
                 CONFIG=config,
@@ -2550,7 +2550,7 @@ class DbHelper:
         self._db.query(DOWNLOADER).filter(DOWNLOADER.ID == int(did)).delete()
 
     @DbPersist(_db)
-    def check_downloader(self, did=None, transfer=None, only_nastool=None, enabled=None, match_path=None):
+    def check_downloader(self, did=None, transfer=None, only_hubstation=None, enabled=None, match_path=None):
         """
         设置下载器状态
         """
@@ -2562,10 +2562,10 @@ class DbHelper:
                     "TRANSFER": int(transfer)
                 }
             )
-        elif only_nastool is not None:
+        elif only_hubstation is not None:
             self._db.query(DOWNLOADER).filter(DOWNLOADER.ID == int(did)).update(
                 {
-                    "ONLY_NASTOOL": int(only_nastool)
+                    "ONLY_HUBSTATION": int(only_hubstation)
                 }
             )
         elif match_path is not None:

@@ -1,7 +1,7 @@
 cd ${WORKDIR}
 
 # 自动更新
-if [ "${NASTOOL_AUTO_UPDATE}" = "true" ]; then
+if [ "${HStation_AUTO_UPDATE}" = "true" ]; then
     if [ ! -s /tmp/requirements.txt.sha256sum ]; then
         sha256sum requirements.txt > /tmp/requirements.txt.sha256sum
     fi
@@ -15,7 +15,7 @@ if [ "${NASTOOL_AUTO_UPDATE}" = "true" ]; then
     git remote set-url origin "${REPO_URL}" &> /dev/null
     echo "windows/" > .gitignore
     # 更新分支
-    if [ "${NASTOOL_VERSION}" == "dev" ]; then
+    if [ "${HStation_VERSION}" == "dev" ]; then
       branch="dev"
     else
       branch="master"
@@ -32,7 +32,7 @@ if [ "${NASTOOL_AUTO_UPDATE}" = "true" ]; then
         hash_new=$(sha256sum package_list.txt)
         if [ "${hash_old}" != "${hash_new}" ]; then
             echo "检测到package_list.txt有变化，更新软件包..."
-            if [ "${NASTOOL_CN_UPDATE}" = "true" ]; then
+            if [ "${HStation_CN_UPDATE}" = "true" ]; then
                 sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_MIRROR}/g" /etc/apk/repositories
                 apk update -f
                 if [ $? -ne 0 ]; then
@@ -52,7 +52,7 @@ if [ "${NASTOOL_AUTO_UPDATE}" = "true" ]; then
         hash_new=$(sha256sum requirements.txt)
         if [ "${hash_old}" != "${hash_new}" ]; then
             echo "检测到requirements.txt有变化，重新安装依赖..."
-            if [ "${NASTOOL_CN_UPDATE}" = "true" ]; then
+            if [ "${HStation_CN_UPDATE}" = "true" ]; then
                 pip install --upgrade pip setuptools wheel -i "${PYPI_MIRROR}"
                 pip install -r requirements.txt -i "${PYPI_MIRROR}"
             else
@@ -85,7 +85,7 @@ if [ "${NASTOOL_AUTO_UPDATE}" = "true" ]; then
         echo "更新失败，继续使用旧的程序来启动..."
     fi
 else
-    echo "程序自动升级已关闭，如需自动升级请在创建容器时设置环境变量：NASTOOL_AUTO_UPDATE=true"
+    echo "程序自动升级已关闭，如需自动升级请在创建容器时设置环境变量：HStation_AUTO_UPDATE=true"
 fi
 
 echo "以PUID=${PUID}，PGID=${PGID}的身份启动程序..."
@@ -111,4 +111,4 @@ if [ -n "$(which redis-server)" ]; then
 fi
 
 # 启动主程序
-exec su-exec nt:nt "$(which dumb-init)" "$(which pm2-runtime)" start run.py -n NAStool --interpreter python3
+exec su-exec nt:nt "$(which dumb-init)" "$(which pm2-runtime)" start run.py -n HStation --interpreter python3
