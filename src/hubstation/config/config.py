@@ -1,10 +1,11 @@
+from enum import Enum
+
 from dynaconf import Dynaconf
 import os
 import shutil
 import sys
 from threading import Lock
 import ruamel.yaml
-
 
 # 种子名/文件名要素分隔字符
 SPLIT_CHARS = r"\.|\s+|\(|\)|\[|]|-|\+|【|】|/|～|;|&|\||#|_|「|」|~"
@@ -21,6 +22,15 @@ PT_TAG = "HS"
 settings = Dynaconf(
     settings_files=['settings.yml'],
 )
+
+
+class OsType(Enum):
+    WINDOWS = "Windows"
+    LINUX = "Linux"
+    SYNOLOGY = "Synology"
+    MACOS = "MacOS"
+    DOCKER = "Docker"
+
 
 # WebDriver路径
 WEBDRIVER_PATH = {
@@ -177,6 +187,3 @@ class Config(object):
         if category:
             return os.path.join(Config().get_config_path(), f"{category}.yaml")
         return None
-
-
-

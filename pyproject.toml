@@ -20,6 +20,9 @@ ruamel-yaml = "^0.17.32"
 cn2an = "^0.5.21"
 dateparser = "^1.1.8"
 apscheduler = "^3.10.4"
+webdriver-manager = "^4.0.0"
+undetected-chromedriver = "^3.5.2"
+func-timeout = "^4.3.5"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.17.4"
