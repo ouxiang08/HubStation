@@ -14,6 +14,12 @@ classifiers = [
 python = "^3.10"
 dynaconf = "^3.1.12"
 click = "^8.1.3"
+stevedore = "^5.1.0"
+sqlalchemy = "^2.0.20"
+ruamel-yaml = "^0.17.32"
+cn2an = "^0.5.21"
+dateparser = "^1.1.8"
+apscheduler = "^3.10.4"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.17.4"

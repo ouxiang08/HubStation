@@ -1,7 +1,9 @@
 from typing import Iterable
+import os.path
+from abc import ABCMeta, abstractmethod
 
 
-class BaseDownloader:
+class BaseDownloader():
     """Base downloader"""
 
     def __init__(self, settings):

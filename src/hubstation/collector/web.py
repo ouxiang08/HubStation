@@ -8,6 +8,9 @@ logger = logging.getLogger(__name__)
 
 class WebCollection(BaseCollector):
 
+
+    deepLevel = 0
+
     def extract(self) -> Iterable[str]:
         pass
 
