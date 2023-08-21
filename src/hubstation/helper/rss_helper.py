@@ -6,8 +6,8 @@ import xml.dom.minidom
 # from app.utils import RssTitleUtils, StringUtils, RequestUtils, ExceptionUtils, DomUtils
 # from config import Config
 from hubstation.config.config import Config
-from hubstation.data.main_db import MainDb
-from hubstation.data.models import RSSTORRENTS
+from hubstation.db.main_db import MainDb
+from hubstation.db.models import RSSTORRENTS
 from hubstation.utils.commons import DbPersist
 from hubstation.utils.dom_utils import DomUtils
 from hubstation.utils.exception_utils import ExceptionUtils

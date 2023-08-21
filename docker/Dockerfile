@@ -1,15 +1,3 @@
-#FROM python:3.10
-#
-#LABEL name="HubStation"
-#LABEL version="0.0.1"
-#LABEL description="HubStation"
-#
-#WORKDIR /app
-#
-#ADD . ./
-#
-## CMD ["python"]
-
 FROM python:3.10.11-alpine AS Builder
 RUN apk add --no-cache --virtual .build-deps \
         libffi-dev \
@@ -17,19 +5,21 @@ RUN apk add --no-cache --virtual .build-deps \
         musl-dev \
         libxml2-dev \
         libxslt-dev \
-    && apk add --no-cache $(echo $(wget --no-check-certificate -qO- https://gitee.com/jiajingjing/hub-station/blob/master/requirements.txt)) \
+    && apk add --no-cache $(echo $(wget --no-check-certificate -qO- https://gitee.com/jiajingjing/hub-station/raw/master/package_list.txt)) \
     && ln -sf /usr/bin/python3 /usr/bin/python \
     && curl https://rclone.org/install.sh | bash \
-#    && if [ "$(uname -m)" = "x86_64" ]; then ARCH=amd64; elif [ "$(uname -m)" = "aarch64" ]; then ARCH=arm64; fi \
+    && if [ "$(uname -m)" = "x86_64" ]; then ARCH=amd64; elif [ "$(uname -m)" = "aarch64" ]; then ARCH=arm64; fi \
     && curl https://dl.min.io/client/mc/release/linux-${ARCH}/mc --create-dirs -o /usr/bin/mc \
     && chmod +x /usr/bin/mc \
     && pip install --upgrade pip setuptools wheel \
     && pip install cython \
-    && pip install -r https://gitee.com/jiajingjing/hub-station/blob/master/requirements.txt \
+    && ls \
+    && pip install -r https://raw.githubusercontent.com/ouxiang08/HubStation/master/requirements.txt \
     && apk del --purge .build-deps \
     && rm -rf /tmp/* /root/.cache /var/cache/apk/*
 COPY --chmod=755 ./rootfs /
 FROM scratch AS APP
+COPY --from=Builder / /
 COPY --from=Builder / /
 ENV S6_SERVICES_GRACETIME=30000 \
     S6_KILL_GRACETIME=60000 \
@@ -40,7 +30,7 @@ ENV S6_SERVICES_GRACETIME=30000 \
     PATH=${PATH}:/usr/lib/chromium \
     LANG="C.UTF-8" \
     TZ="Asia/Shanghai" \
-    HStation_CONFIG="/config/config.yaml" \
+    HStation_CONFIG="/hubstation/config/config.yaml" \
     HStation_AUTO_UPDATE=true \
     HStation_CN_UPDATE=true \
     HStation_VERSION=master \

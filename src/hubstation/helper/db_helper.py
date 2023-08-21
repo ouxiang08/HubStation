@@ -6,8 +6,8 @@ from enum import Enum
 from sqlalchemy import cast, func, and_, case
 
 from hubstation.constants import MediaType, RmtMode
-from hubstation.data.main_db import MainDb, DbPersist
-from hubstation.data.models import *
+from hubstation.db.main_db import MainDb, DbPersist
+from hubstation.db.models import *
 from hubstation.utils.string_utils import StringUtils
 
 

@@ -5,6 +5,8 @@ import threading
 import warnings
 from hubstation import log
 from hubstation.config.config import Config, APP_VERSION
+from hubstation.data.config_monitor import start_config_monitor
+from hubstation.db import init_db, update_db, init_data
 from hubstation.helper.chrome_helper import init_chrome
 
 warnings.filterwarnings('ignore')
@@ -20,22 +22,13 @@ is_windows_exe = is_executable and (os.name == "nt")
 if is_executable:
     # 可执行文件初始化环境变量
     config_path = os.path.join(os.path.dirname(sys.executable), "config").replace("\\", "/")
-    os.environ["HS_CONFIG"] = os.path.join(config_path, "config.yaml").replace("\\", "/")
-    os.environ["HS_LOG"] = os.path.join(config_path, "logs").replace("\\", "/")
+    os.environ["HUBSTATION_CONFIG"] = os.path.join(config_path, "config.yaml").replace("\\", "/")
+    os.environ["HUBSTATION_LOG"] = os.path.join(config_path, "logs").replace("\\", "/")
     try:
         if not os.path.exists(config_path):
             os.makedirs(config_path)
     except Exception as err:
         print(str(err))
-
-# from config import Config
-# import log
-# from web.action import WebAction
-# from web.main import App
-# from app.db import init_db, update_db, init_data
-# from app.helper import init_chrome
-# from initializer import update_config, check_config,  start_config_monitor, stop_config_monitor
-# from version import APP_VERSION
 
 
 def sigal_handler(num, stack):
@@ -92,16 +85,12 @@ signal.signal(signal.SIGTERM, sigal_handler)
 def init_system():
     # 配置
     log.console('HubStation 当前版本号：%s' % APP_VERSION)
-    # # 数据库初始化
-    # init_db()
-    # # 数据库更新
-    # update_db()
-    # # 数据初始化
-    # init_data()
-    # # 升级配置文件
-    # update_config()
-    # # 检查配置文件
-    # check_config()
+    # 数据库初始化
+    init_db()
+    # 数据库更新
+    update_db()
+    # 数据初始化
+    init_data()
 
 
 def start_service():
@@ -109,7 +98,7 @@ def start_service():
     # 启动服务
     # WebAction.start_service()
     # 监听配置文件变化
-    # start_config_monitor()
+    start_config_monitor()
 
 
 # 系统初始化

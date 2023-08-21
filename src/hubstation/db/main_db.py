@@ -9,7 +9,7 @@ from sqlalchemy.pool import QueuePool
 # from app.db.models import Base
 # from app.utils import ExceptionUtils, PathUtils
 # from config import Config
-from hubstation.data.models import Base
+from hubstation.db.models import Base
 from hubstation.utils.exception_utils import ExceptionUtils
 from hubstation.utils.path_utils import PathUtils
 
